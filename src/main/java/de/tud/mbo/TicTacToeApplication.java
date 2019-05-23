@@ -2,7 +2,9 @@ package de.tud.mbo;
 
 import de.tud.mbo.core.TicTacToe;
 import de.tud.mbo.health.TemplateHealthCheck;
-import de.tud.mbo.resources.TicTacToeResource;
+import de.tud.mbo.resources.TicTacToeGameIntentResource;
+import de.tud.mbo.resources.TicTacToeRestartIntentResource;
+import de.tud.mbo.resources.TicTacToeStopIntentResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -36,14 +38,15 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
     @Override
     public void run(final TicTacToeConfiguration configuration,
                     final Environment environment) {
-        final TicTacToeResource resource = new TicTacToeResource(
-                configuration.getTemplate(),
-                configuration.getDefaultName()
-        );
-        final TemplateHealthCheck healthCheck =
-                new TemplateHealthCheck(configuration.getTemplate());
-        environment.healthChecks().register("template", healthCheck);
-        environment.jersey().register(resource);
+        final TicTacToeGameIntentResource gameResource = new TicTacToeGameIntentResource();
+        final TicTacToeStopIntentResource stopResource = new TicTacToeStopIntentResource();
+        final TicTacToeRestartIntentResource restartResource = new TicTacToeRestartIntentResource();
+
+        // final TemplateHealthCheck healthCheck = new TemplateHealthCheck();
+        //environment.healthChecks().register("template", healthCheck);
+        environment.jersey().register(gameResource);
+        environment.jersey().register(stopResource);
+        environment.jersey().register(restartResource);
     }
 
 }
