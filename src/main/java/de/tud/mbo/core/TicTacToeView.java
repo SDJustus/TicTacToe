@@ -5,25 +5,38 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class TicTacToe extends JPanel {
+public class TicTacToeView extends JPanel {
     private JButton ticTacToeField[][] = new JButton[3][3];
     private static JPanel restartPanel = new JPanel();
     private int playerXorO = 0;
     private String player = "X";
     private Object[] options  = {"Restart", "Exit Game"};
     private JLabel label = new JLabel();
+    private JButton restartButton;
 
-    public TicTacToe()
+    public TicTacToeView()
     {
         setLayout(new GridLayout(3,3));
         initializeButtons();
     }
 
+    public JButton getFieldButton(int row, int col){
+        return ticTacToeField[row][col];
+    }
+    public void setFieldButtons(int row, int col, JButton button){
+        this.ticTacToeField[row][col] = button;
+    }
+    public JButton getRestartButton(){
+        return restartButton;
+    }
+    public void setRestartButton(){
+        this.restartButton = restartButton;
+    }
     /*public static void main(String[] args)
     {
         JFrame window = new JFrame("Tic-Tac-Toe for MBO");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().add(new TicTacToe(), BorderLayout.CENTER);
+        window.getContentPane().add(new TicTacToeView(), BorderLayout.CENTER);
         window.getContentPane().add(restartPanel, BorderLayout.EAST);
         window.setBounds(300,200,600,500);
         window.setVisible(true);
@@ -41,7 +54,7 @@ public class TicTacToe extends JPanel {
                 add(ticTacToeField[row][col]);
             }
         }
-        JButton restartButton = new JButton();
+        restartButton = new JButton();
         restartButton.setText("Restart Game");
         restartButton.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         restartButton.addActionListener(new ActionListener() {
@@ -156,21 +169,6 @@ public class TicTacToe extends JPanel {
                 return false;
         }
 
-    }
-    private class VoiceRecognitionListener implements ActionListener {
-
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //TODO: implement methods for voice Recognition
-        }
-    }
-    private class GestureRecognitionListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //TODO: implement methods for gesture Recognistion
-        }
     }
 
     public String getPlayer() {

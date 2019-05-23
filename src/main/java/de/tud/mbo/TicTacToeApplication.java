@@ -1,6 +1,6 @@
 package de.tud.mbo;
 
-import de.tud.mbo.core.TicTacToe;
+import de.tud.mbo.core.TicTacToeView;
 import de.tud.mbo.health.TemplateHealthCheck;
 import de.tud.mbo.resources.TicTacToeResource;
 import io.dropwizard.Application;
@@ -17,7 +17,7 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
         new TicTacToeApplication().run(args);
         JFrame window = new JFrame("Tic-Tac-Toe for MBO");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().add(new TicTacToe(), BorderLayout.CENTER);
+        window.getContentPane().add(new TicTacToeView(), BorderLayout.CENTER);
         window.getContentPane().add(restartPanel, BorderLayout.EAST);
         window.setBounds(300,200,600,500);
         window.setVisible(true);
@@ -25,7 +25,7 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
 
     @Override
     public String getName() {
-        return "TicTacToe";
+        return "TicTacToeView";
     }
 
     @Override
