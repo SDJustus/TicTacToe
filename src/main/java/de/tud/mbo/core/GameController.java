@@ -11,6 +11,15 @@ public class GameController {
 
     private GameController(){
         ticTacToeView = new TicTacToeView();
+        /*
+        JPanel restartPanel = new JPanel();
+        JFrame window = new JFrame("Tic-Tac-Toe for MBO");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.getContentPane().add(new TicTacToeView(), BorderLayout.CENTER);
+        window.getContentPane().add(restartPanel, BorderLayout.EAST);
+        window.setBounds(300,200,600,500);
+        window.setVisible(true);
+        */
         initialiseView();
     }
 
@@ -25,7 +34,7 @@ public class GameController {
     }
 
 
-    private void initialiseView(){
+    public void initialiseView(){
         for(int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 CustomJButton button = new CustomJButton();

@@ -1,16 +1,12 @@
 package de.tud.mbo.core;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class TicTacToeView extends JPanel {
     private CustomJButton ticTacToeField[][] = new CustomJButton[3][3];
-    private static JPanel restartPanel = new JPanel();
-
-
-    private JLabel label = new JLabel();
+    private static JPanel restartPanel;
+    private JLabel label;
     private JButton restartButton;
 
     public TicTacToeView() {
@@ -196,3 +192,4 @@ public class TicTacToeView extends JPanel {
 
 
 }
+*/
