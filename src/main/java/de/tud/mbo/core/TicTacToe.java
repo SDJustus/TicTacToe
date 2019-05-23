@@ -19,7 +19,7 @@ public class TicTacToe extends JPanel {
         initializeButtons();
     }
 
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         JFrame window = new JFrame("Tic-Tac-Toe for MBO");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,7 +27,7 @@ public class TicTacToe extends JPanel {
         window.getContentPane().add(restartPanel, BorderLayout.EAST);
         window.setBounds(300,200,600,500);
         window.setVisible(true);
-    }
+    }*/
 
     public void initializeButtons() {
         for(int row = 0; row < 3; row++) {
