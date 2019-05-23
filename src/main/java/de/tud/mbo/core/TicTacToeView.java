@@ -6,33 +6,53 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class TicTacToeView extends JPanel {
-    private JButton ticTacToeField[][] = new JButton[3][3];
+    private CustomJButton ticTacToeField[][] = new CustomJButton[3][3];
     private static JPanel restartPanel = new JPanel();
-    private int playerXorO = 0;
-    private String player = "X";
-    private Object[] options  = {"Restart", "Exit Game"};
+
+
     private JLabel label = new JLabel();
     private JButton restartButton;
 
-    public TicTacToeView()
-    {
-        setLayout(new GridLayout(3,3));
-        initializeButtons();
+    public TicTacToeView() {
+        setLayout(new GridLayout(3, 3));
     }
 
-    public JButton getFieldButton(int row, int col){
+    public CustomJButton getFieldButton(int row, int col) {
         return ticTacToeField[row][col];
     }
-    public void setFieldButtons(int row, int col, JButton button){
+
+    public void setFieldButtons(int row, int col, CustomJButton button) {
         this.ticTacToeField[row][col] = button;
     }
-    public JButton getRestartButton(){
+
+    public JButton getRestartButton() {
         return restartButton;
     }
-    public void setRestartButton(){
+
+    public void setRestartButton(JButton restartButton) {
         this.restartButton = restartButton;
     }
-    /*public static void main(String[] args)
+
+    public JPanel getRestartPanel() {
+        return this.restartPanel;
+    }
+
+    public void setRestartPanel(JPanel restartPanel) {
+        this.restartPanel = restartPanel;
+    }
+
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public void setLabel(JLabel label) {
+        this.label = label;
+    }
+
+}
+
+/*
+    public static void main(String[] args)
     {
         JFrame window = new JFrame("Tic-Tac-Toe for MBO");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,9 +60,10 @@ public class TicTacToeView extends JPanel {
         window.getContentPane().add(restartPanel, BorderLayout.EAST);
         window.setBounds(300,200,600,500);
         window.setVisible(true);
-    }*/
+    }
 
     public void initializeButtons() {
+        /*
         for(int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
 
@@ -54,6 +75,7 @@ public class TicTacToeView extends JPanel {
                 add(ticTacToeField[row][col]);
             }
         }
+
         restartButton = new JButton();
         restartButton.setText("Restart Game");
         restartButton.setFont(new Font("Times New Roman", Font.PLAIN, 16));
@@ -71,6 +93,7 @@ public class TicTacToeView extends JPanel {
         restartPanel.add(restartButton, BorderLayout.CENTER);
 
     }
+
 
     public void resetButtons() {
         for(int row = 0; row < 3; row++) {
@@ -136,7 +159,7 @@ public class TicTacToeView extends JPanel {
              *      2,0 | 2,1 | 2,2
              */
             //horizontal win check
-            if( checkAdjacent(0,0,0,1) && checkAdjacent(0,1,0,2) ) //no need to put " == true" because the default check is for true
+/*           if( checkAdjacent(0,0,0,1) && checkAdjacent(0,1,0,2) ) //no need to put " == true" because the default check is for true
                 return true;
             else if( checkAdjacent(1,0,1,1) && checkAdjacent(1,1,1,2) )
                 return true;
@@ -171,10 +194,5 @@ public class TicTacToeView extends JPanel {
 
     }
 
-    public String getPlayer() {
-        return player;
-    }
-    public void setPlayer(String player) {
-        this.player = player;
-    }
+
 }
