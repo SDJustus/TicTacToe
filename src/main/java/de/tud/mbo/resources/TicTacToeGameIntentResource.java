@@ -9,7 +9,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.Optional;
 
-@Path("/hello-world")
+@Path("/game/slot")
 @Produces(MediaType.APPLICATION_JSON)
 public class TicTacToeGameIntentResource {
 
@@ -20,6 +20,12 @@ public class TicTacToeGameIntentResource {
     @Timed
     public void sayHello(@QueryParam("value") Optional<String> value) {
         final String urlValue = value.get();
+        char rowSelector = urlValue.charAt(0);
+        int colSelector = Integer.parseInt(urlValue.substring(1,1));
+
+        // call game play set x or o method
+
+
 
     }
 }
