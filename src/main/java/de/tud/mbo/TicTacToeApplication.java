@@ -1,6 +1,7 @@
 package de.tud.mbo;
 
-import de.tud.mbo.core.TicTacToe;
+import de.tud.mbo.core.GameController;
+import de.tud.mbo.core.TicTacToeView;
 import de.tud.mbo.health.TemplateHealthCheck;
 import de.tud.mbo.resources.TicTacToeGameIntentResource;
 import de.tud.mbo.resources.TicTacToeRestartIntentResource;
@@ -15,19 +16,22 @@ import java.awt.*;
 public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
     private static JPanel restartPanel = new JPanel();
 
+
     public static void main(final String[] args) throws Exception {
         new TicTacToeApplication().run(args);
+
         JFrame window = new JFrame("Tic-Tac-Toe for MBO");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().add(new TicTacToe(), BorderLayout.CENTER);
-        window.getContentPane().add(restartPanel, BorderLayout.EAST);
+        window.getContentPane().add(new TicTacToeView(), BorderLayout.CENTER);
+        //window.getContentPane().add(restartPanel, BorderLayout.EAST);
         window.setBounds(300,200,600,500);
         window.setVisible(true);
+
     }
 
     @Override
     public String getName() {
-        return "TicTacToe";
+        return "TicTacToeView";
     }
 
     @Override
