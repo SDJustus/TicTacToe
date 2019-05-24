@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
     private static JPanel restartPanel = new JPanel();
-    private static GameController gameController;
+
 
     public static void main(final String[] args) throws Exception {
         new TicTacToeApplication().run(args);
@@ -21,12 +21,10 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
         JFrame window = new JFrame("Tic-Tac-Toe for MBO");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().add(new TicTacToeView(), BorderLayout.CENTER);
-        window.getContentPane().add(restartPanel, BorderLayout.EAST);
+        //window.getContentPane().add(restartPanel, BorderLayout.EAST);
         window.setBounds(300,200,600,500);
         window.setVisible(true);
 
-        gameController = gameController.getInstance();
-        //gameController.initialiseView();
     }
 
     @Override

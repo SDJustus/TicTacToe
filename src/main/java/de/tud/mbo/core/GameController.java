@@ -9,59 +9,16 @@ public class GameController {
     private String player = "X";
     private Object[] options  = {"Restart", "Exit Game"};
 
-    private GameController(){
-        ticTacToeView = new TicTacToeView();
-        /*
-        JPanel restartPanel = new JPanel();
-        JFrame window = new JFrame("Tic-Tac-Toe for MBO");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().add(new TicTacToeView(), BorderLayout.CENTER);
-        window.getContentPane().add(restartPanel, BorderLayout.EAST);
-        window.setBounds(300,200,600,500);
-        window.setVisible(true);
-        */
-        initialiseView();
+    public GameController(TicTacToeView ticTacToeView){
+        this.ticTacToeView = ticTacToeView;
     }
 
-    public static GameController getInstance(){
-        return new GameController();
-    }
+
     public String getPlayer() {
         return player;
     }
     public void setPlayer(String player) {
         this.player = player;
-    }
-
-
-    public void initialiseView(){
-        for(int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                CustomJButton button = new CustomJButton();
-                button.setText("");
-                button.setFont(new Font("Times New Roman", Font.PLAIN, 70));
-                button.setBackground(Color.WHITE);
-                button.setRow(row);
-                button.setCol(col);
-                button.addActionListener(new ButtonClickListener());
-                ticTacToeView.setFieldButtons(row,col,button);
-            }
-        }
-
-        JButton restartButton = new JButton();
-        restartButton.setText("Restart Game");
-        restartButton.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-        restartButton.addActionListener(e -> resetGame());
-        ticTacToeView.setRestartButton(restartButton);
-
-        JPanel restartPanel = new JPanel();
-        restartPanel.setLayout(new GridLayout(5,1,20,0));
-
-        JLabel label = new JLabel();
-        label.setText("Player X's turn!");
-        restartPanel.add(label, BorderLayout.CENTER);
-        restartPanel.add(restartButton, BorderLayout.CENTER);
-        ticTacToeView.setRestartPanel(restartPanel);
     }
 
 
@@ -74,6 +31,9 @@ public class GameController {
                 ticTacToeView.setFieldButtons(row,col,button);
             }
         }
+        player = "X";
+        playerXorO = 0;
+        ticTacToeView.getLabel().setText("Player X's turn!");
     }
 
 
