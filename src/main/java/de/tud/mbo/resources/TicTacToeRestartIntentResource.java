@@ -1,6 +1,7 @@
 package de.tud.mbo.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import de.tud.mbo.core.TicTacToeView;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,7 +20,6 @@ public class TicTacToeRestartIntentResource {
     @GET
     @Timed
     public void sayHello() {
-        // call the restart Game method
-
+        TicTacToeView.getGameController().resetGame();
     }
 }

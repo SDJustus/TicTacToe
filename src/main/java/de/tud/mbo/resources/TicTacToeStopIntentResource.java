@@ -1,6 +1,7 @@
 package de.tud.mbo.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import de.tud.mbo.core.TicTacToeView;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,7 +21,7 @@ public class TicTacToeStopIntentResource {
     @GET
     @Timed
     public void sayHello() {
-        // call the game stop method
+        TicTacToeView.getGameController().stopGame();
 
     }
 }

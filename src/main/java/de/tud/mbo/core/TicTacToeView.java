@@ -8,7 +8,7 @@ public class TicTacToeView extends JPanel {
     private static JPanel restartPanel = new JPanel();
     private JLabel label;
     private JButton restartButton;
-    private GameController gameController;
+    private static GameController gameController;
 
     public TicTacToeView() {
         this.gameController = new GameController(this);
@@ -21,7 +21,6 @@ public class TicTacToeView extends JPanel {
         restartButton.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         restartButton.addActionListener(e -> gameController.resetGame());
 
-        //restartPanel = new JPanel();
         restartPanel.setLayout(new GridLayout(5,1,20,0));
 
         label = new JLabel();
@@ -88,13 +87,9 @@ public class TicTacToeView extends JPanel {
         this.label = label;
     }
 
-
-
-
-
-
-
-
+    public static GameController getGameController() {
+        return gameController;
+    }
 }
 
 

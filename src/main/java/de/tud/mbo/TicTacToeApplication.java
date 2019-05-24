@@ -19,7 +19,6 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
 
     public static void main(final String[] args) throws Exception {
         new TicTacToeApplication().run(args);
-
         JFrame window = new JFrame("Tic-Tac-Toe for MBO");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().add(new TicTacToeView(), BorderLayout.CENTER);
@@ -51,6 +50,8 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
         environment.jersey().register(gameResource);
         environment.jersey().register(stopResource);
         environment.jersey().register(restartResource);
+
+
     }
 
 }

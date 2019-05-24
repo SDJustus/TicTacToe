@@ -1,6 +1,7 @@
 package de.tud.mbo.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import de.tud.mbo.core.TicTacToeView;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,9 +21,9 @@ public class TicTacToeGameIntentResource {
     @Timed
     public void sayHello(@QueryParam("value") Optional<String> value) {
         final String urlValue = value.get();
-        char rowSelector = urlValue.charAt(0);
+        String rowSelector = urlValue.substring(0,0);
         int colSelector = Integer.parseInt(urlValue.substring(1,1));
-
+        TicTacToeView.getGameController().makeMove(rowSelector, colSelector);
         // call game play set x or o method
 
 
