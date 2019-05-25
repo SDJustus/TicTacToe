@@ -16,6 +16,14 @@ public class TicTacToeView extends JPanel {
         initialiseView();
     }
     public void initialiseView(){
+
+        JFrame window = new JFrame("Tic-Tac-Toe for MBO");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.getContentPane().add(new TicTacToeView(), BorderLayout.CENTER);
+        window.getContentPane().add(restartPanel, BorderLayout.EAST);
+        window.setBounds(300,200,600,500);
+        window.setVisible(true);
+
         restartButton = new JButton();
         restartButton.setText("Restart Game");
         restartButton.setFont(new Font("Times New Roman", Font.PLAIN, 16));

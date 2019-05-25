@@ -1,8 +1,5 @@
-template: Hello, %s!
-defaultName: Stranger
 server:
   type: simple
-  applicationContextPath: /application
   adminContextPath: /admin
   connector:
     type: http
