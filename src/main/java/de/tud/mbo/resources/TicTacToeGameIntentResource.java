@@ -21,10 +21,10 @@ public class TicTacToeGameIntentResource {
     @Timed
     public void sayHello(@QueryParam("value") Optional<String> value) {
         final String urlValue = value.get();
-        String rowSelector = urlValue.substring(0,0);
-        int colSelector = Integer.parseInt(urlValue.substring(1,1));
+        System.out.println(urlValue);
+        String rowSelector = urlValue.substring(0,1);
+        int colSelector = Integer.parseInt(urlValue.substring(1,2));
         TicTacToeView.getGameController().makeMove(rowSelector, colSelector);
-        // call game play set x or o method
 
 
 

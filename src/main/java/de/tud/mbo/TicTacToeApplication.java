@@ -18,7 +18,6 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
 
     public static void main(final String[] args) throws Exception {
         new TicTacToeApplication().run(args);
-        new TicTacToeView();
     }
 
     @Override
@@ -38,14 +37,19 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
         final TicTacToeStopIntentResource stopResource = new TicTacToeStopIntentResource();
         final TicTacToeRestartIntentResource restartResource = new TicTacToeRestartIntentResource();
 
-        new TicTacToeView();
-
         // final TemplateHealthCheck healthCheck = new TemplateHealthCheck();
         //environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(gameResource);
         environment.jersey().register(stopResource);
         environment.jersey().register(restartResource);
 
+        //TicTacToeView ticTacToeView = new TicTacToeView();
+        JFrame window = new JFrame("Tic-Tac-Toe for MBO");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.getContentPane().add( new TicTacToeView(), BorderLayout.CENTER);
+        //window.getContentPane().add(ticTacToeView.getRestartPanel(), BorderLayout.EAST);
+        window.setBounds(300,200,600,500);
+        window.setVisible(true);
 
     }
 

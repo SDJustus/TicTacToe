@@ -43,15 +43,15 @@ public class GameController {
     }
 
     public void makeMove(int row, int column){
-        this.playGame(row,column);
+        this.playGame(row,column-1);
     }
     public void makeMove(String row, int column){
         switch (row){
-            case "A": this.playGame(1,column);
+            case "a": this.playGame(0,column-1);
             break;
-            case "B": this.playGame(2,column);
+            case "b": this.playGame(1,column-1);
             break;
-            case "C": this.playGame(3,column);
+            case "c": this.playGame(2,column-1);
             break;
             default: System.out.println("Da ist wohl etwas schief gelaufen!!!");
         }
