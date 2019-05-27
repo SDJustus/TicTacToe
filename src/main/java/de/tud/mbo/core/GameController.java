@@ -24,8 +24,8 @@ public class GameController {
 
 
     public void resetGame(){
-        for(int row = 0; row < 3; row++) {
-            for(int col = 0; col < 3; col++){
+        for(int row = 1; row < 4; row++) {
+            for(int col = 1; col < 4; col++){
                 CustomJButton button = ticTacToeView.getFieldButton(row,col);
                 button.setText("");
                 button.setEnabled(true);
@@ -55,11 +55,11 @@ public class GameController {
 
     public void makeMove(String row, int column){
         switch (row){
-            case "a": this.playGame(0,column-1);
+            case "a": this.playGame(1,column);
             break;
-            case "b": this.playGame(1,column-1);
+            case "b": this.playGame(2,column);
             break;
-            case "c": this.playGame(2,column-1);
+            case "c": this.playGame(3,column);
             break;
             default: System.out.println("Da ist wohl etwas schief gelaufen!!!");
         }
@@ -96,8 +96,8 @@ public class GameController {
                     System.exit(0);
             }
             int notEmptyTextCounter = 0;
-            for (int rowP = 0; rowP < 3; rowP++) {
-                for (int colP = 0; colP < 3; colP++) {
+            for (int rowP = 1; rowP < 4; rowP++) {
+                for (int colP = 1; colP < 4; colP++) {
                     if (!ticTacToeView.getFieldButton(rowP, colP).getText().isEmpty())
                         notEmptyTextCounter++;
                 }
@@ -152,7 +152,8 @@ public class GameController {
     }
 
     public boolean checkAdjacent(int leftrow, int leftcol, int rightrow, int rightcol) {
-        if ( ticTacToeView.getFieldButton(leftrow,leftcol).getText().equals(ticTacToeView.getFieldButton(rightrow,rightcol).getText()) && !ticTacToeView.getFieldButton(leftrow,leftcol).getText().equals("") )
+        if ( ticTacToeView.getFieldButton(leftrow+1,leftcol+1).getText().equals(ticTacToeView.getFieldButton(rightrow+1,rightcol+1).getText()) &&
+                !ticTacToeView.getFieldButton(leftrow+1,leftcol+1).getText().equals("") )
             return true;
         else
             return false;
