@@ -8,6 +8,7 @@ public class GameController {
     private int playerXorO = 0;
     private String player = "X";
     private Object[] options  = {"Restart", "Exit Game"};
+    private Object[] optionsForAlreadySetField  = {"OK"};
 
     public GameController(TicTacToeView ticTacToeView){
         this.ticTacToeView = ticTacToeView;
@@ -43,8 +44,15 @@ public class GameController {
     }
 
     public void makeMove(int row, int column){
-        this.playGame(row,column-1);
+        this.playGame(row,column);
     }
+
+    /**
+     * For Alexa
+     * @param row
+     * @param column
+     */
+
     public void makeMove(String row, int column){
         switch (row){
             case "a": this.playGame(0,column-1);
@@ -59,46 +67,55 @@ public class GameController {
     }
 
     private void playGame(int row, int col){
-        if(playerXorO %2 == 0) {
-            ticTacToeView.getFieldButton(row,col).setText("X");
-            ticTacToeView.getLabel().setText("Player O's turn!");
-            setPlayer("X");
+        if (!ticTacToeView.getFieldButton(row, col).getText().isEmpty()){
+            JOptionPane.showOptionDialog(null,
+                    "Bitte wählen Sie ein anderes Feld", "Feld bereits belegt",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    null, optionsForAlreadySetField, optionsForAlreadySetField[0]);
         }
+
         else {
-            ticTacToeView.getFieldButton(row,col).setText("O");
-            ticTacToeView.getLabel().setText("Player X's turn!");
-            setPlayer("O");
-        }
-        ticTacToeView.getFieldButton(row,col).setEnabled(false);
-        if(checkForWin() == true ) {
-            int selected = JOptionPane.showOptionDialog(null,
-                    "Player "+getPlayer()+" has won the game", "Congratulations!",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    null, options, options[0]);
-            if(selected == 0)
-                resetGame();
-            else
-                System.exit(0); }
-        int notEmptyTextCounter = 0;
-        for (int rowP = 0; rowP < 3; rowP ++){
-            for(int colP = 0;colP < 3; colP++){
-                if (!ticTacToeView.getFieldButton(rowP,colP).getText().isEmpty())
-                    notEmptyTextCounter++;
+            if (playerXorO % 2 == 0) {
+                ticTacToeView.getFieldButton(row, col).setText("X");
+                ticTacToeView.getLabel().setText("Player O's turn!");
+                setPlayer("X");
+            } else {
+                ticTacToeView.getFieldButton(row, col).setText("O");
+                ticTacToeView.getLabel().setText("Player X's turn!");
+                setPlayer("O");
             }
-        }
-        if (notEmptyTextCounter == 9){
-            int selected = JOptionPane.showOptionDialog(null,
-                    "No more turns left!", "Game Over!",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    null, options, options[0]);
-            if(selected == 0)
-                resetGame();
-            else
-                System.exit(0);
+            ticTacToeView.getFieldButton(row, col).setEnabled(false);
+            if (checkForWin() == true) {
+                int selected = JOptionPane.showOptionDialog(null,
+                        "Player " + getPlayer() + " has won the game", "Congratulations!",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                        null, options, options[0]);
+                if (selected == 0)
+                    resetGame();
+                else
+                    System.exit(0);
+            }
+            int notEmptyTextCounter = 0;
+            for (int rowP = 0; rowP < 3; rowP++) {
+                for (int colP = 0; colP < 3; colP++) {
+                    if (!ticTacToeView.getFieldButton(rowP, colP).getText().isEmpty())
+                        notEmptyTextCounter++;
+                }
+            }
+            if (notEmptyTextCounter == 9) {
+                int selected = JOptionPane.showOptionDialog(null,
+                        "No more turns left!", "Game Over!",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                        null, options, options[0]);
+                if (selected == 0)
+                    resetGame();
+                else
+                    System.exit(0);
 
-        }
+            }
 
-        playerXorO++;
+            playerXorO++;
+        }
     }
 
     public boolean checkForWin() {

@@ -18,6 +18,7 @@ public class TicTacToeApplication extends Application<TicTacToeConfiguration> {
 
     public static void main(final String[] args) throws Exception {
         new TicTacToeApplication().run(args);
+        // mvn clean org.apache.maven.plugins:maven-assembly-plugin:2.6:assembly -DdescriptorId=jar-with-dependencies package
     }
 
     @Override
