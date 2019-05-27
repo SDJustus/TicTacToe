@@ -7,7 +7,7 @@ public class GameController {
     private TicTacToeView ticTacToeView;
     private int playerXorO = 0;
     private String player = "X";
-    private Object[] options  = {"Restart", "Exit Game"};
+    private Object[] options  = {"Neustart", "Verlassen"};
     private Object[] optionsForAlreadySetField  = {"OK"};
 
     public GameController(TicTacToeView ticTacToeView){
@@ -34,7 +34,7 @@ public class GameController {
         }
         player = "X";
         playerXorO = 0;
-        ticTacToeView.getLabel().setText("Player X's turn!");
+        ticTacToeView.getLabel().setText("Spieler X ist am Zug");
     }
 
 
@@ -77,17 +77,17 @@ public class GameController {
         else {
             if (playerXorO % 2 == 0) {
                 ticTacToeView.getFieldButton(row, col).setText("X");
-                ticTacToeView.getLabel().setText("Player O's turn!");
+                ticTacToeView.getLabel().setText("Spieler O ist am Zug!");
                 setPlayer("X");
             } else {
                 ticTacToeView.getFieldButton(row, col).setText("O");
-                ticTacToeView.getLabel().setText("Player X's turn!");
+                ticTacToeView.getLabel().setText("Spieler X ist am Zug!");
                 setPlayer("O");
             }
             ticTacToeView.getFieldButton(row, col).setEnabled(false);
             if (checkForWin() == true) {
                 int selected = JOptionPane.showOptionDialog(null,
-                        "Player " + getPlayer() + " has won the game", "Congratulations!",
+                        "Spieler " + getPlayer() + " hat das Spiel gewonnen!", "Herzlichen Glückwunsch!!",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                         null, options, options[0]);
                 if (selected == 0)
@@ -104,7 +104,7 @@ public class GameController {
             }
             if (notEmptyTextCounter == 9) {
                 int selected = JOptionPane.showOptionDialog(null,
-                        "No more turns left!", "Game Over!",
+                        "Keine Züge mehr übrig!", "Das Spiel ist vorbei!",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                         null, options, options[0]);
                 if (selected == 0)
