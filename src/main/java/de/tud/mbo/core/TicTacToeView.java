@@ -3,6 +3,10 @@ package de.tud.mbo.core;
 
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Line2D;
 import javax.swing.*;
 
 public class TicTacToeView extends JPanel {
@@ -12,6 +16,8 @@ public class TicTacToeView extends JPanel {
     private JButton restartButton;
     private static GameController gameController;
     private JPanel buttonPanel;
+    private Point prevPoint;
+    private Point newPoint;
 
 
     public TicTacToeView() {
@@ -38,17 +44,27 @@ public class TicTacToeView extends JPanel {
 
         for(int col = 0; col < 4; col++) {
             CustomJButton button = new CustomJButton();
-            button.setText(helperRow[col]);
-            button.setEnabled(false);
-            button.setRow(0);
-            button.setCol(col);
-            this.setFieldButtons(0,col,button);
-            buttonPanel.add(ticTacToeField[0][col]);
-        }
+            if(col == 0){
+               button.setText("Gesteneingabe");
+               button.setEnabled(true);
 
+            } else {
+                button.setText(helperRow[col]);
+                button.setEnabled(false);
+            }
+                button.setRow(0);
+                button.setCol(col);
+                this.setFieldButtons(0, col, button);
+                buttonPanel.add(ticTacToeField[0][col]);
+                if(col == 0){button.addActionListener(e -> {
+                    initialiseGesture();
+                });}
+
+
+        }
+        int helperColCounter = 0;
         for(int row = 1; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
-                int helperColCounter = 0;
                 if(col == 0){CustomJButton button = new CustomJButton();
                     button.setText(helperCol[helperColCounter]);
                     button.setEnabled(false);
@@ -77,6 +93,10 @@ public class TicTacToeView extends JPanel {
         add(label,BorderLayout.SOUTH);
         add(restartButton, BorderLayout.NORTH);
         add(buttonPanel,BorderLayout.CENTER);
+    }
+
+    public void initialiseGesture(){
+        new MouseMotionDrawAndPointSaver();
     }
 
 
