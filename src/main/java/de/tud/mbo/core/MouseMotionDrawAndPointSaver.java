@@ -18,7 +18,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
     int tempcounter = 0;
 
     public MouseMotionDrawAndPointSaver() {
-
+        setTitle("TemplateCounter"+tempcounter);
         JPanel drawPanel = new JPanel();
         drawPanel.addMouseMotionListener(new MouseAdapter() {
 
@@ -65,10 +65,13 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
                 if(saveTemplates){
                     save(angleArray, tempcounter);
                     tempcounter++;
+                    if(tempcounter == 4){
+                        tempcounter = 0;
+                    }
                 }
                 DTW dtw = new DTW();
-                DTW.Result  result = dtw.compute(angleArray, angleArray);
-                System.out.println(result.getDistance());
+                //DTW.Result  result = dtw.compute(angleArray, angleArray);
+                //System.out.println(result.getDistance());
 
 
             }
@@ -103,7 +106,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
     public void save(float[] angleArray, int tempCounter){
 
         try {
-            FileOutputStream fos = new FileOutputStream("src/main/java/de/tud/mbo/resources/template.txt");
+            FileOutputStream fos = new FileOutputStream("src/main/resources/templates/temp"+tempCounter+"A1.txt");
             DataOutputStream dos = new DataOutputStream(fos);
             for(float f:angleArray) {
                 dos.writeFloat(f);
