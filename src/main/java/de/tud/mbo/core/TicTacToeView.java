@@ -7,9 +7,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Line2D;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
 import javax.swing.*;
 
-public class TicTacToeView extends JPanel {
+public class TicTacToeView extends Observer{
     private CustomJButton ticTacToeField[][] = new CustomJButton[4][4];
     private static JPanel restartPanel;
     private JLabel label;
@@ -22,7 +25,6 @@ public class TicTacToeView extends JPanel {
 
     public TicTacToeView() {
         this.gameController = new GameController(this);
-
         initialiseView();
     }
     public void initialiseView(){
@@ -96,7 +98,8 @@ public class TicTacToeView extends JPanel {
     }
 
     public void initialiseGesture(){
-        new MouseMotionDrawAndPointSaver();
+        this.subject = new MouseMotionDrawAndPointSaver();
+        subject.attach(this);
     }
 
 
@@ -134,5 +137,15 @@ public class TicTacToeView extends JPanel {
 
     public static GameController getGameController() {
         return gameController;
+    }
+
+    public TicTacToeView getTicView(){
+        return this;
+    }
+
+    @Override
+    public void updateButton(char row, int col) {
+        System.out.println("Test"+row+" "+col);
+        gameController.makeMove(row, col);
     }
 }

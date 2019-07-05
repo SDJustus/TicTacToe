@@ -3,7 +3,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 import javax.swing.*;
 
 public class MouseMotionDrawAndPointSaver extends JFrame {
@@ -11,11 +12,13 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
     private ArrayList<Integer> seqXAsArrayList, seqYAsArrayList;
     private ArrayList<Float> angleForFor;
     private boolean deleteLines;
-    private boolean saveTemplates = true;
+    private boolean saveTemplates = false;
     private Point startPoint;
     private Point previousPoint;
     private Point currentPoint;
     int tempcounter = 0;
+    float[] angleArray;
+    private List<Observer> observers = new ArrayList<>();
 
     public MouseMotionDrawAndPointSaver() {
         setTitle("TemplateCounter"+tempcounter);
@@ -56,7 +59,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
                         angleForFor.add(computeAngleForDTW(currentPoint, previousPoint, startPoint));
                     }
                 }
-                float[] angleArray = new float[angleForFor.size()];
+                angleArray = new float[angleForFor.size()];
                 int i = 0;
                 for(Float f:angleForFor){
                     angleArray[i] = f;
@@ -65,13 +68,14 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
                 if(saveTemplates){
                     save(angleArray, tempcounter);
                     tempcounter++;
+                }else {
+                    HashMap<Double, String> testHash = computeDTWResult(angleArray);
+                    Set<Double> set = testHash.keySet();
+                    Object obj = Collections.min(set);
+                    notifyAllObservers(testHash.get(obj).toLowerCase().charAt(0),Integer.parseInt(testHash.get(obj).substring(1)));
+
                 }
-                DTW dtw = new DTW();
-                //DTW.Result  result = dtw.compute(angleArray, angleArray);
-                //System.out.println(result.getDistance());
-
-
-            }
+                }
         });
         add(drawPanel);
         setMinimumSize(new Dimension(400,400));
@@ -90,12 +94,6 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
 
     public Float computeAngleForDTW(Point current, Point previous, Point startPoint){
         Float angle = null;
-        /*if(Math.abs(x-y) < Math.PI){
-            angle = new Float((1/Math.PI)*Math.abs(x-y));
-        } else{
-            angle = new Float((1/Math.PI)*2*Math.PI-Math.abs(x-y));
-        }
-        return angle;*/
         return (float)Math.toDegrees(Math.atan2(current.x - startPoint.x,current.y - startPoint.y)-
                 Math.atan2(previous.x- startPoint.x,previous.y- startPoint.y));
     }
@@ -103,42 +101,73 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
     public void save(float[] angleArray, int tempCounter){
 
         try {
-            FileOutputStream fos = new FileOutputStream("src/main/resources/templates/temp"+tempCounter+"C2.txt");
+            FileOutputStream fos = new FileOutputStream("src/main/resources/templates/temp"+tempCounter+"C3.txt");
             DataOutputStream dos = new DataOutputStream(fos);
             for(float f:angleArray) {
                 dos.writeFloat(f);
             }
             dos.close();
         } catch (IOException e) {
+            if(e instanceof EOFException){
+
+            }else
             e.printStackTrace();
         }
     }
-    public float[] loadTemplates() {
+    public HashMap<Double, String> computeDTWResult(float[] angleArray) {
         ArrayList<Float> floats = null;
+        HashMap<Double, String> dtwResults=new HashMap<>();
+        DTW dtw = new DTW();
         float[] template = null;
-        try{
-        FileInputStream fin = new FileInputStream("src/main/java/de/tud/mbo/resources/template.txt");
-        DataInputStream din = new DataInputStream(fin);
-        floats = new ArrayList<>();
-        Float line;
-        System.out.println("iasjdkjsa");
-        while ((line = din.readFloat()) != null){
-            floats.add(line);
-        }
-        din.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("ajuwoq");
-        template = new float[floats.size()];
-        int i = 0;
-        for(float f: floats){
-        template[i] = f;
-        i++;
-        }
 
-        return template;
+            File dir = new File("src/main/resources/templates/");
+            File[] directoryListing = dir.listFiles();
+            if (directoryListing != null) {
+                for (File child : directoryListing) {
+                    try {
+                        FileInputStream fin = new FileInputStream(child);
+                        DataInputStream din = new DataInputStream(fin);
+                        floats = new ArrayList<>();
+                        Float line;
+                        System.out.println("iasjdkjsa");
+                        while ((line = din.readFloat()) != null) {
+                            floats.add(line);
+                        }
+                        din.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("ajuwoq");
+                    template = new float[floats.size()];
+                    int i = 0;
+                    for (float f : floats) {
+                        template[i] = f;
+                        i++;
+                    }
+                    DTW.Result result = dtw.compute(angleArray, template);
+                    dtwResults.put(result.getDistance(), child.getName().substring(5,7));
+                }
+            }
+                 else{
+                    System.out.println("Something went wrong");
+                }
 
-    }
+                return(dtwResults);
+
+            }
+            public HashMap<Double, String> getResult(){
+                return computeDTWResult(angleArray);
+
+            }
+            public void attach(Observer observer) {
+                observers.add(observer);
+            }
+
+            public void notifyAllObservers(char row, int col){
+                for(Observer observer:observers){
+                    observer.updateButton(row, col);
+                }
+            }
+
+
 }

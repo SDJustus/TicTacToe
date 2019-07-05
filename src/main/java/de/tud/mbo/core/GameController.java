@@ -44,7 +44,7 @@ public class GameController {
     }
 
     public void makeMove(int row, int column){
-        this.playGame(row,column);
+        playGame(row,column);
     }
 
     /**
@@ -55,11 +55,11 @@ public class GameController {
 
     public void makeMove(String row, int column){
         switch (row){
-            case "a": this.playGame(1,column);
+            case "a": playGame(1,column);
             break;
-            case "b": this.playGame(2,column);
+            case "b": playGame(2,column);
             break;
-            case "c": this.playGame(3,column);
+            case "c": playGame(3,column);
             break;
             default: System.out.println("Da ist wohl etwas schief gelaufen!!!");
         }
