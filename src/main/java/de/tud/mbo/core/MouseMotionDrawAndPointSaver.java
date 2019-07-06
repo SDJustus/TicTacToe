@@ -72,7 +72,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
                     HashMap<Double, String> testHash = computeDTWResult(angleArray);
                     Set<Double> set = testHash.keySet();
                     Object obj = Collections.min(set);
-                    notifyAllObservers(testHash.get(obj).toLowerCase().charAt(0),Integer.parseInt(testHash.get(obj).substring(1)));
+                    notifyAllObservers(testHash.get(obj).toLowerCase().substring(0,1),Integer.parseInt(testHash.get(obj).substring(1)));
 
                 }
                 }
@@ -117,7 +117,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
     public HashMap<Double, String> computeDTWResult(float[] angleArray) {
         ArrayList<Float> floats = null;
         HashMap<Double, String> dtwResults=new HashMap<>();
-        DTW dtw = new DTW();
+        DTW dtw;
         float[] template = null;
 
             File dir = new File("src/main/resources/templates/");
@@ -144,8 +144,8 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
                         template[i] = f;
                         i++;
                     }
-                    DTW.Result result = dtw.compute(angleArray, template);
-                    dtwResults.put(result.getDistance(), child.getName().substring(5,7));
+                    dtw = new DTW(angleArray, template);
+                    dtwResults.put(dtw.warpingDistance, child.getName().substring(5,7));
                 }
             }
                  else{
@@ -163,7 +163,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
                 observers.add(observer);
             }
 
-            public void notifyAllObservers(char row, int col){
+            public void notifyAllObservers(String row, int col){
                 for(Observer observer:observers){
                     observer.updateButton(row, col);
                 }

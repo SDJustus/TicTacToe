@@ -144,7 +144,7 @@ public class TicTacToeView extends Observer{
     }
 
     @Override
-    public void updateButton(char row, int col) {
+    public void updateButton(String row, int col) {
         System.out.println("Test"+row+" "+col);
         gameController.makeMove(row, col);
     }

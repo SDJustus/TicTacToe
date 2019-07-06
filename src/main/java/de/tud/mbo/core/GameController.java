@@ -55,11 +55,11 @@ public class GameController {
 
     public void makeMove(String row, int column){
         switch (row){
-            case "a": playGame(1,column);
+            case "a": playGame(column,1);
             break;
-            case "b": playGame(2,column);
+            case "b": playGame(column,2);
             break;
-            case "c": playGame(3,column);
+            case "c": playGame(column,3);
             break;
             default: System.out.println("Da ist wohl etwas schief gelaufen!!!");
         }
