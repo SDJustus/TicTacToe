@@ -71,6 +71,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
                 }else {
                     HashMap<Double, String> testHash = computeDTWResult(angleArray);
                     Set<Double> set = testHash.keySet();
+                    System.out.println("Keyset"+set+ set.size());
                     Object obj = Collections.min(set);
                     notifyAllObservers(testHash.get(obj).toLowerCase().substring(0,1),Integer.parseInt(testHash.get(obj).substring(1)));
 
@@ -101,7 +102,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
     public void save(float[] angleArray, int tempCounter){
 
         try {
-            FileOutputStream fos = new FileOutputStream("src/main/resources/templates/temp"+tempCounter+"C3.txt");
+            FileOutputStream fos = new FileOutputStream("src/main/resources/templates/temp"+tempCounter+"R1.txt");
             DataOutputStream dos = new DataOutputStream(fos);
             for(float f:angleArray) {
                 dos.writeFloat(f);
@@ -145,6 +146,7 @@ public class MouseMotionDrawAndPointSaver extends JFrame {
                         i++;
                     }
                     dtw = new DTW(angleArray, template);
+                    System.out.println(child.getName());
                     dtwResults.put(dtw.warpingDistance, child.getName().substring(5,7));
                 }
             }

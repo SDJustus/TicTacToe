@@ -61,6 +61,10 @@ public class GameController {
             break;
             case "c": playGame(column,3);
             break;
+            case "e": stopGame();
+            break;
+            case "r": resetGame();
+            break;
             default: System.out.println("Da ist wohl etwas schief gelaufen!!!");
         }
 
